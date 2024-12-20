@@ -5,7 +5,7 @@ end
 if LoadingScriptSlap then return end
 LoadingScriptSlap = true
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
-if hookmetamethod then
+if hookmetamethod and getnamecallmethod then
 local bypass;
     bypass = hookmetamethod(game, "__namecall", function(method, ...) 
         if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
@@ -20,7 +20,7 @@ local bypass;
         return bypass(method, ...)
     end)
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Bypass Success",Icon = "rbxassetid://7733658504",Duration = 5})
-elseif not hookmetamethod then
+elseif not hookmetamethod and not getnamecallmethod then
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot bypass, you must be careful",Icon = "rbxassetid://7733658504",Duration = 5})
 end
 if game.StarterPlayer.StarterPlayerScripts:FindFirstChild("ClientAnticheat") and game.StarterPlayer.StarterPlayerScripts.ClientAnticheat:FindFirstChild("AntiMobileExploits") then
@@ -3899,6 +3899,34 @@ end
     end
 })
 
+Misc1Basic:AddToggle("Brick Tween Player", {
+    Text = "Brick Tween",
+    Default = false, 
+    Callback = function(Value) 
+_G.BrickTeleport = Value
+while _G.BrickTeleport do
+for i,v in pairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
+if 25 >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
+if game.Workspace:FindFirstChild("Union") then
+for i, a in pairs(game.Workspace:GetChildren()) do
+        if a.Name == "Union" then
+           Tween = game:GetService("TweenService"):Create(a, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {CFrame = v.Character.HumanoidRootPart.CFrame})
+           Tween:Play()
+           Tween.Completed:Wait()
+        end
+    end
+end
+end
+end
+end
+end
+task.wait(0.3)
+end
+    end
+})
+
  Misc1Basic:AddToggle("Spam Ability 250 Kill", {
     Text = "Spam Ability 250 Kill",
     Default = false, 
@@ -7241,11 +7269,11 @@ end)
 local Misc1Group = Tabs.Tab:AddLeftGroupbox("Info")
 
 if ApiPlayer.country == "Vietnam" and ApiPlayer.country_code == "VN" and ApiPlayer.city == "Hanoi" then
-InfoServer1Group:AddLabel("Country [ Việt Nam / VN ] [ "..ApiPlayer.flag.emoji.." ]", true)
-InfoServer1Group:AddLabel("City [ Hà Nội ]", true)
+Misc1Group:AddLabel("Country [ Việt Nam / VN ] [ "..ApiPlayer.flag.emoji.." ]", true)
+Misc1Group:AddLabel("City [ Hà Nội ]", true)
 else
-InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country.." / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
-InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
+Misc1Group:AddLabel("Country [ "..ApiPlayer.country.." / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
+Misc1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
 end
 CanYouFps = Misc1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]", true)
 CanYouPing = Misc1Group:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]", true)
