@@ -2261,26 +2261,6 @@ end
 })
 
 Badge2Group:AddButton({
-    Text = "Win Obby Psycho",
-    Func = function()
-if game.Workspace:FindFirstChild("RepressedMemoriesMap") ~= nil then
-OGL = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame
-OGL1 = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame
-wait(0.5)
-game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-wait(2.5)
-game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame = OGL
-wait(2.5)
-game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-wait(2.5)
-game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = OGL1
-else
-Notification("You have enter limbo [ don't show all, not work ]", 5)
-end
-    end
-})
-
-Badge2Group:AddButton({
     Text = "Get Glove Bomb",
     Func = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Warp" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124919840) then
@@ -2583,6 +2563,35 @@ end
    SyncToggleState = Library.IsMobile
 })
 
+Badge2Group:AddToggle("Peep Farm", {
+    Text = "Peep Farm",
+    Default = false, 
+    Callback = function(Value) 
+_G.Peepfarm = Value
+while _G.Peepfarm do
+if game.Workspace:FindFirstChild("XmasSnowPeeps") then
+for i,v in pairs(workspace.XmasSnowPeeps:GetChildren()) do
+                    if v.Name == "Peep" then
+if v:FindFirstChild("ClickDetector") then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(-5, -1.63, 0)
+end
+if fireclickdetector and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector, 0)
+fireclickdetector(v.ClickDetector, 1)
+                    end
+                end
+                end
+            end
+task.wait()
+end
+    end
+}):AddKeyPicker("PeepFarm", {
+   Default = "Z",
+   Text = "Peep Farm",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
 Badge2Group:AddToggle("Hallow Jack Farm", {
     Text = "Hallow Jack Farm",
     Default = false, 
@@ -2685,8 +2694,8 @@ Badge2Group:AddToggle("Gift Farm", {
 _G.Giftfarm = Value
 while _G.Giftfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Gift" then
-v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    if v.Name == "Gift" and game.Players.LocalPlayer.Character:FindFirstChild("Head") then
+v.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
                     end
                 end
 task.wait()
@@ -8753,7 +8762,7 @@ wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace._ugcQuestObjectBobPlushie.Handle.CFrame
 end)
 
-MenuGroup:AddDropdown("NotifyChoose", {
+Misc1Group:AddDropdown("Badge", {
     Text = "Badge",
     Values = {"Tinkever", "Null"},
     Default = "",
@@ -8765,351 +8774,6 @@ elseif Value == "Tinkever" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, -214, 800.529)
 end
     end
-})
-
-elseif game.PlaceId == 15507333474 then
-local Window = Library:CreateWindow({
-	Title = "Article Hub - Christmas 🎉",
-	Center = true,
-    AutoShow = true,
-    Resizable = true,
-    ShowCustomCursor = true,
-    NotifySide = "Right",
-    TabPadding = 2,
-    MenuFadeTime = 0
-})
-
-Tabs = {
-	Tab = Window:AddTab("Combat", "rbxassetid://7733674079"),
-    Tab1 = Window:AddTab("Misc", "rbxassetid://4370318685"),
-	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
-}
-
-local Combat1Group = Tabs.Tab:AddLeftGroupbox("Combat")
-
-Combat1Group:AddSlider("Reach Slap", {
-    Text = "Reach Slap Aura",
-    Default = 25,
-    Min = 10,
-    Max = 50,
-    Rounding = 1,
-    Compact = true,
-    Callback = function(Value)
-_G.ReachAura = Value
-    end
-})
-
-Combat1Group:AddToggle("Slap Aura", {
-    Text = "Slap Aura",
-    Default = false, 
-    Callback = function(Value)
-_G.SlapAura = Value
-                while _G.SlapAura do
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character then
-if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:WaitForChild("inMatch").Value == true and game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-                        if _G.ReachAura >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
-game.ReplicatedStorage.GeneralHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
-                    end
-end
-end
-                end
-task.wait()
-end
-    end
-}):AddKeyPicker("SlapAura", {
-   Default = "F",
-   Text = "Slap Aura",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-Misc1Basic:AddSlider("Reach HitBox", {
-    Text = "Reach Hitbox",
-    Default = 10,
-    Min = 10,
-    Max = 30,
-    Rounding = 0,
-    Compact = true,
-    Callback = function(Value)
-_G.ReachHitbox = Value
-    end
-})
-
- Misc1Basic:AddToggle("Hitbox Player", {
-    Text = "Hitbox Player",
-    Default = false, 
-    Callback = function(Value) 
-_G.HitboxPlayer = Value
-while _G.HitboxPlayer do
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
-                        v.Character.HumanoidRootPart.Transparency = 0.75
-                    end
-                end
-task.wait()
-end
-if _G.HitboxPlayer == false then
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
-                        v.Character.HumanoidRootPart.Transparency = 1
-                    end
-                end
-end
-    end
-}):AddKeyPicker("Hitbox", {
-   Default = "Z",
-   Text = "Hitbox Player",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-Combat1Group:AddSlider("Extend Glove", {
-    Text = "Extend Glove",
-    Default = 5,
-    Min = 2,
-    Max = 50,
-    Rounding = 1,
-    Compact = true,
-    Callback = function(Value)
-_G.GloveExtendReach = Value
-    end
-})
-
-Combat1Group:AddDropdown("Extend Option", {
-    Text = "Extend Option",
-    Values = {"Meat Stick","Pancake","Growth","North Korea Wall","Slight Extend"},
-    Default = "",
-    Multi = false,
-    Callback = function(Value)
-GloveExtendOption = Value
-    end
-})
-
-Combat1Group:AddToggle("Extend Glove", {
-    Text = "Extend Glove",
-    Default = false, 
-    Callback = function(Value)
-_G.GloveExtendGet = Value
-while _G.GloveExtendGet do
-if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
-for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                    if v:IsA("Tool") and v.Name ~= "Radio" then
-                        if v:FindFirstChild("Glove") ~= nil then
-                          if GloveExtendOption == "Meat Stick" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
-                            elseif GloveExtendOption == "Pancake" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
-                            elseif GloveExtendOption == "Growth" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
-                            elseif GloveExtendOption == "North Korea Wall" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
-                            elseif GloveExtendOption == "Slight Extend" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
-                            end
-                            v:FindFirstChild("Glove").Transparency = 0.5
-                        end
-                    end
-                end
-else
-for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v:IsA("Tool") and v.Name ~= "Radio" then
-                        if v:FindFirstChild("Glove") ~= nil then
-                            if GloveExtendOption == "Meat Stick" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
-                            elseif GloveExtendOption == "Pancake" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
-                            elseif GloveExtendOption == "Growth" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
-                            elseif GloveExtendOption == "North Korea Wall" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
-                            elseif GloveExtendOption == "Slight Extend" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
-                            end
-                            v:FindFirstChild("Glove").Transparency = 0.5
-                        end
-                    end
-                end
-           end
-task.wait()
-end
-if _G.GloveExtendGet == false then
-if game.Players.LocalPlayer:WaitForChild("Backpack"):FindFirstChildOfClass("Tool") ~= nil then
-for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                    if v:IsA("Tool") and v.Name ~= "Radio" then
-                        if v:FindFirstChild("Glove") ~= nil then
-                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
-                            v:FindFirstChild("Glove").Transparency = 0
-                        end
-                    end
-                end
-else
-for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v:IsA("Tool") and v.Name ~= "Radio" then
-                        if v:FindFirstChild("Glove") ~= nil then
-                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
-                            v:FindFirstChild("Glove").Transparency = 0
-                        end
-                    end
-                end
-end
-end
-    end
-}):AddKeyPicker("ExtendGlove", {
-   Default = "H",
-   Text = "Extend Glove",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-local Misc1Group = Tabs.Tab1:AddLeftGroupbox("Anti")
-
-Misc1Group:AddToggle("Anti Thorn", {
-    Text = "Anti Thorn",
-    Default = false, 
-    Callback = function(Value)
-game.Workspace["AntiVoid"].CanCollide = Value
-if Value == true then
-game.Workspace["AntiVoid"].Transparency = 0.5
-else
-game.Workspace["AntiVoid"].Transparency = 1
-end
-    end
-}):AddKeyPicker("AntiThorn", {
-   Default = "U",
-   Text = "Anti Thorn",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-Misc1Group:AddToggle("Anti Ragdoll", {
-    Text = "Anti Ragdoll",
-    Default = false, 
-    Callback = function(Value)
-_G.AntiRagdoll = Value
-while _G.AntiRagdoll do
-if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Torso") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled") then
-if game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled") and game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true then
-repeat task.wait()
-if game.Players.LocalPlayer.Character:FindFirstChild("Torso") then
-game.Players.LocalPlayer.Character.Torso.Anchored = true
-end
-until game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled") and game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
-if game.Players.LocalPlayer.Character:FindFirstChild("Torso") then
-game.Players.LocalPlayer.Character.Torso.Anchored = false
-end
-end
-end
-task.wait()
-end
-    end
-}):AddKeyPicker("AntiRagdoll", {
-   Default = "U",
-   Text = "Anti Ragdoll",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-local Misc2Group = Tabs.Tab1:AddRightGroupbox("Misc")
-
-Misc2Group:AddButton("Teleport Rob Plushie", function()
-_G.Settings = {Players = {["Ignore Me"] = true, ["Ignore Others"] = true},
-Meshes = {Destroy = false,LowDetail = true},
-Images = {Invisible = true,LowDetail = false,Destroy = false,},
-Other = {["No Particles"] = true,["No Camera Effects"] = true,["No Explosions"] = true,["No Clothes"] = true,["Low Water Graphics"] = true,["No Shadows"] = true,["Low Rendering"] = true,["Low Quality Parts"] = true}}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
-end)
-
-Misc1Group:AddToggle("Auto Win", {
-    Text = "Auto Win",
-    Default = false, 
-    Callback = function(Value)
-_G.WinTeleport = Value
-while _G.WinTeleport do
-if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Part" and v:FindFirstChild("TouchInterest") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,-6,0)
-end
-end
-end
-task.wait()
-end
-    end
-}):AddKeyPicker("AutoWin", {
-   Default = "G",
-   Text = "Auto Win",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-Misc1Group:AddInput("FlySpeed", {
-    Default = "50",
-    Numeric = true,
-    Text = "Fly Speed",
-    Placeholder = "UserFlySpeed",
-    Callback = function(Value)
-_G.SetSpeedFly = Value
-    end
-})
-
-_G.SetSpeedFly = 50
-Misc1Group:AddToggle("Start Fly", {
-    Text = "Start Fly",
-    Default = false, 
-    Callback = function(Value) 
-_G.StartFly = Value
-if _G.StartFly == false then
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler:Destroy()
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler:Destroy()
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-end
-end
-while _G.StartFly do
-if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(9e9,9e9,9e9)
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
-end
-if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
-end
-elseif game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") == nil then
-local bv = Instance.new("BodyVelocity")
-local bg = Instance.new("BodyGyro")
-
-bv.Name = "VelocityHandler"
-bv.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-bv.MaxForce = Vector3.new(0,0,0)
-bv.Velocity = Vector3.new(0,0,0)
-
-bg.Name = "GyroHandler"
-bg.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-bg.MaxTorque = Vector3.new(0,0,0)
-bg.P = 1000
-bg.D = 50
-end
-task.wait()
-end
-    end
-}):AddKeyPicker("Fly", {
-   Default = "R",
-   Text = "Fly",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
 })
 elseif game.PlaceId == 16034567693 then
 local Window = Library:CreateWindow({
@@ -10075,6 +9739,156 @@ for i,v in pairs(game.Workspace.map:GetChildren()) do
 task.wait()
 end
     end
+})
+elseif game.PlaceId == 95706409702231 then
+local Window = Library:CreateWindow({
+	Title = "Article Hub - Jerry Boss",
+	Center = true,
+    AutoShow = true,
+    Resizable = true,
+    ShowCustomCursor = true,
+    NotifySide = "Right",
+    TabPadding = 2,
+    MenuFadeTime = 0
+})
+
+Tabs = {
+	Tab = Window:AddTab("Main", "rbxassetid://4370318685"),
+	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+}
+
+local Misc2Group = Tabs.Tab:AddLeftGroupbox("Anti")
+
+Misc2Group:AddToggle("JerryDie", {
+    Text = "Jerry Die",
+    Default = false, 
+    Callback = function(Value) 
+_G.JerryDie = Value
+if _G.JerryDie == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-21, 67, -359)
+wait(0.3)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+if workspace:FindFirstChild("Attacks") then
+workspace.Attacks:Destroy()
+end
+end
+while _G.JerryDie do
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name == "Boss" and v:FindFirstChild("Humanoid") then
+v.Humanoid.Health = 0
+end
+end
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name == "SnowmanClone" then
+v:Destroy()
+end
+end
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name == "RageSnowmanClone" then
+v:Destroy()
+end
+end
+task.wait()
+end
+    end
+})
+
+Misc2Group:AddToggle("JerrySanta", {
+    Text = "Jerry Santa",
+    Default = false, 
+    Callback = function(Value) 
+_G.JerrySanta = Value
+if _G.JerrySanta == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 120, 0)
+wait(0.3)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+if workspace:FindFirstChild("Attacks") then
+workspace.Attacks:Destroy()
+end
+end
+while _G.JerrySanta do
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name == "SnowmanClone" then
+v:Destroy()
+end
+end
+for i,v in pairs(workspace:GetChildren()) do
+if v.Name == "RageSnowmanClone" then
+v:Destroy()
+end
+end
+task.wait()
+end
+    end
+})
+
+local Misc1Group = Tabs.Tab:AddRightGroupbox("Misc")
+
+Misc1Group:AddInput("FlySpeed", {
+    Default = "50",
+    Numeric = true,
+    Text = "Fly Speed",
+    Placeholder = "UserFlySpeed",
+    Callback = function(Value)
+_G.SetSpeedFly = Value
+    end
+})
+
+_G.SetSpeedFly = 50
+Misc1Group:AddToggle("Start Fly", {
+    Text = "Start Fly",
+    Default = false, 
+    Callback = function(Value) 
+_G.StartFly = Value
+if _G.StartFly == false then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler:Destroy()
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler:Destroy()
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
+while _G.StartFly do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+elseif game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") == nil then
+local bv = Instance.new("BodyVelocity")
+local bg = Instance.new("BodyGyro")
+
+bv.Name = "VelocityHandler"
+bv.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bv.MaxForce = Vector3.new(0,0,0)
+bv.Velocity = Vector3.new(0,0,0)
+
+bg.Name = "GyroHandler"
+bg.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bg.MaxTorque = Vector3.new(0,0,0)
+bg.P = 1000
+bg.D = 50
+end
+task.wait()
+end
+    end
+}):AddKeyPicker("Fly", {
+   Default = "R",
+   Text = "Fly",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
 })
 end
 
